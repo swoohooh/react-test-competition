@@ -11,6 +11,10 @@ const Todo: NextPage = () => {
   };
 
   const handleAdd = () => {
+    if (!item) {
+      return;
+    }
+
     setTodos([item, ...todos]);
     setItem("");
   };

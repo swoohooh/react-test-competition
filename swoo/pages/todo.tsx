@@ -19,6 +19,13 @@ const Todo: NextPage = () => {
     setItem("");
   };
 
+  const removeTodo = (index: number) => {
+    console.log("bb", index, todos);
+    todos.splice(index, 1);
+    console.log("aa", index, todos);
+    setTodos([...todos]);
+  };
+
   useEffect(() => {
     console.log(todos);
   }, [todos]);
@@ -26,12 +33,12 @@ const Todo: NextPage = () => {
   return (
     <div>
       <Head>
-        <title>ToDo</title>
+        <title>To-Do</title>
         <meta name="description" content="ToDo" />
       </Head>
 
       <main>
-        <h1>Todo list!</h1>
+        <h1>To-Do List!</h1>
 
         <form>
           <input type="text" value={item} onChange={handleInput} />
@@ -42,7 +49,12 @@ const Todo: NextPage = () => {
 
         <ul>
           {todos.map((todo, i) => (
-            <li key={i}>{todo}</li>
+            <li key={i}>
+              {todo}{" "}
+              <button type="button" onClick={() => removeTodo(i)}>
+                X
+              </button>
+            </li>
           ))}
         </ul>
       </main>

@@ -32,6 +32,7 @@ class MyDocument extends Document {
       <Html>
         <Head>
           <meta charSet='utf-8' />
+          <link rel='stylesheet' href='//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css' />
         </Head>
 
         <body>

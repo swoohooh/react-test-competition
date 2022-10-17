@@ -14,13 +14,15 @@
     "react-dom": "18.2.0",
     "react-is": "^18.2.0",
     "styled-components": "^5.3.6",
-    "styled-reset": "^4.4.2"
+    "styled-reset": "^4.4.2",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@types/node": "18.11.0",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
     "@types/styled-components": "^5.1.26",
+    "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.40.0",
     "@typescript-eslint/parser": "^5.40.0",
     "babel-plugin-styled-components": "^2.0.7",

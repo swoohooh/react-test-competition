@@ -32,6 +32,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react", "npm:18.0.21"],\
             ["@types/react-dom", "npm:18.0.6"],\
             ["@types/styled-components", "npm:5.1.26"],\
+            ["@types/uuid", "npm:8.3.4"],\
             ["@typescript-eslint/eslint-plugin", "virtual:77a32779e2c9d9b7a8b861e1848458c7814d7c3708beb7e25d6ef9ae019c8a180303b318153bac68e2139948e70de36b8c4236a98d8831923c7419a8de908f7c#npm:5.40.0"],\
             ["@typescript-eslint/parser", "virtual:77a32779e2c9d9b7a8b861e1848458c7814d7c3708beb7e25d6ef9ae019c8a180303b318153bac68e2139948e70de36b8c4236a98d8831923c7419a8de908f7c#npm:5.40.0"],\
             ["babel-plugin-styled-components", "virtual:77a32779e2c9d9b7a8b861e1848458c7814d7c3708beb7e25d6ef9ae019c8a180303b318153bac68e2139948e70de36b8c4236a98d8831923c7419a8de908f7c#npm:2.0.7"],\
@@ -49,7 +50,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-is", "npm:18.2.0"],\
             ["styled-components", "virtual:77a32779e2c9d9b7a8b861e1848458c7814d7c3708beb7e25d6ef9ae019c8a180303b318153bac68e2139948e70de36b8c4236a98d8831923c7419a8de908f7c#npm:5.3.6"],\
             ["styled-reset", "virtual:77a32779e2c9d9b7a8b861e1848458c7814d7c3708beb7e25d6ef9ae019c8a180303b318153bac68e2139948e70de36b8c4236a98d8831923c7419a8de908f7c#npm:4.4.2"],\
-            ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=701156"]\
+            ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=701156"],\
+            ["uuid", "npm:9.0.0"]\
           ],\
           "linkType": "SOFT"\
         }]\
@@ -647,6 +649,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/hoist-non-react-statics", "npm:3.3.1"],\
             ["@types/react", "npm:18.0.21"],\
             ["csstype", "npm:3.1.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/uuid", [\
+        ["npm:8.3.4", {\
+          "packageLocation": "./.yarn/cache/@types-uuid-npm-8.3.4-7547f4402c-6f11f3ff70.zip/node_modules/@types/uuid/",\
+          "packageDependencies": [\
+            ["@types/uuid", "npm:8.3.4"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -3115,6 +3126,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react", "npm:18.0.21"],\
             ["@types/react-dom", "npm:18.0.6"],\
             ["@types/styled-components", "npm:5.1.26"],\
+            ["@types/uuid", "npm:8.3.4"],\
             ["@typescript-eslint/eslint-plugin", "virtual:77a32779e2c9d9b7a8b861e1848458c7814d7c3708beb7e25d6ef9ae019c8a180303b318153bac68e2139948e70de36b8c4236a98d8831923c7419a8de908f7c#npm:5.40.0"],\
             ["@typescript-eslint/parser", "virtual:77a32779e2c9d9b7a8b861e1848458c7814d7c3708beb7e25d6ef9ae019c8a180303b318153bac68e2139948e70de36b8c4236a98d8831923c7419a8de908f7c#npm:5.40.0"],\
             ["babel-plugin-styled-components", "virtual:77a32779e2c9d9b7a8b861e1848458c7814d7c3708beb7e25d6ef9ae019c8a180303b318153bac68e2139948e70de36b8c4236a98d8831923c7419a8de908f7c#npm:2.0.7"],\
@@ -3132,7 +3144,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-is", "npm:18.2.0"],\
             ["styled-components", "virtual:77a32779e2c9d9b7a8b861e1848458c7814d7c3708beb7e25d6ef9ae019c8a180303b318153bac68e2139948e70de36b8c4236a98d8831923c7419a8de908f7c#npm:5.3.6"],\
             ["styled-reset", "virtual:77a32779e2c9d9b7a8b861e1848458c7814d7c3708beb7e25d6ef9ae019c8a180303b318153bac68e2139948e70de36b8c4236a98d8831923c7419a8de908f7c#npm:4.4.2"],\
-            ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=701156"]\
+            ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=701156"],\
+            ["uuid", "npm:9.0.0"]\
           ],\
           "linkType": "SOFT"\
         }]\
@@ -3675,6 +3688,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packagePeers": [\
             "@types/react",\
             "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["uuid", [\
+        ["npm:9.0.0", {\
+          "packageLocation": "./.yarn/cache/uuid-npm-9.0.0-46c41e3e43-8dd2c83c43.zip/node_modules/uuid/",\
+          "packageDependencies": [\
+            ["uuid", "npm:9.0.0"]\
           ],\
           "linkType": "HARD"\
         }]\

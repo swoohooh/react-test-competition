@@ -2,9 +2,14 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import react, { useState, useEffect } from "react";
 
+interface TodoItem {
+  name: string;
+  isDone: boolean;
+}
+
 const Todo: NextPage = () => {
   const [item, setItem] = useState<string>("");
-  const [todos, setTodos] = useState<string[]>([]);
+  const [todos, setTodos] = useState<TodoItem[]>([]);
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setItem(e.target.value);
@@ -15,14 +20,17 @@ const Todo: NextPage = () => {
       return;
     }
 
-    setTodos([item, ...todos]);
+    setTodos([{ name: item, isDone: false }, ...todos]);
     setItem("");
   };
 
   const removeTodo = (index: number) => {
-    console.log("bb", index, todos);
     todos.splice(index, 1);
-    console.log("aa", index, todos);
+    setTodos([...todos]);
+  };
+
+  const toggleTodo = (index: number) => {
+    todos[index].isDone = !todos[index].isDone;
     setTodos([...todos]);
   };
 
@@ -40,17 +48,22 @@ const Todo: NextPage = () => {
       <main>
         <h1>To-Do List!</h1>
 
-        <form>
+        <div>
           <input type="text" value={item} onChange={handleInput} />
           <button type="button" onClick={handleAdd}>
             Add
           </button>
-        </form>
+        </div>
 
         <ul>
           {todos.map((todo, i) => (
             <li key={i}>
-              {todo}{" "}
+              <input
+                type="checkbox"
+                checked={todo.isDone}
+                onClick={() => toggleTodo(i)}
+              />
+              {todo.isDone ? <s>{todo.name}</s> : <i>{todo.name}</i>}{" "}
               <button type="button" onClick={() => removeTodo(i)}>
                 X
               </button>

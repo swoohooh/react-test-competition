@@ -157,6 +157,9 @@ export const GlobalStyle = createGlobalStyle`
     height: 100%;
     font-size: 14px;
   }
+  body {
+    background: #e9ecef;
+  }
   ::-moz-selection {
     background: #b3d4fc;
     text-shadow: none;

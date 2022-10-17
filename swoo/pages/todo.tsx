@@ -28,12 +28,19 @@ const Todo: NextPage = () => {
 
       <main>
         <h1>Todo list!</h1>
+
         <form>
           <input type="text" value={item} onChange={handleInput} />
           <button type="button" onClick={handleAdd}>
             Add
           </button>
         </form>
+
+        <ul>
+          {todos.map((todo, i) => (
+            <li key={i}>{todo}</li>
+          ))}
+        </ul>
       </main>
     </div>
   );

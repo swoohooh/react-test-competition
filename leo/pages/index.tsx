@@ -55,7 +55,7 @@ const Home: NextPage = () => {
 
   return (
     <TodoContainer>
-      <TodoHeader todoLength={todos.length} completedTodoLength={todos.filter((item) => item.completed).length} />
+      <TodoHeader totalNumber={todos.length} completedTotalNumber={todos.filter((item) => item.completed).length} />
 
       <TodoAddForm addTodo={addTodo} />
 

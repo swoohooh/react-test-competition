@@ -1,16 +1,16 @@
 import * as S from './styles';
 
 interface Props {
-  todoLength: number;
-  completedTodoLength: number;
+  totalNumber: number;
+  completedTotalNumber: number;
 }
 
-const Header = ({ todoLength, completedTodoLength }: Props) => {
+const Header = ({ totalNumber, completedTotalNumber }: Props) => {
   return (
     <S.TodoHeader>
       <h1>Todo App</h1>
       <p>
-        총 {todoLength}개 중 {completedTodoLength}개 완료
+        총 {totalNumber}개 중 {completedTotalNumber}개 완료
       </p>
     </S.TodoHeader>
   );

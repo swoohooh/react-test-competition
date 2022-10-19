@@ -3,23 +3,23 @@ import type { ITodo } from '../../pages';
 import * as S from './styles';
 
 interface Props {
-  todo: ITodo;
-  todoToggle: (idx: ITodo['idx']) => void;
-  todoUpdate: (idx: ITodo['idx'], task: ITodo['task']) => void;
-  todoRemove: (idx: ITodo['idx']) => void;
+  data: ITodo;
+  toggleTodo: (idx: ITodo['idx']) => void;
+  updateTodo: (idx: ITodo['idx'], task: ITodo['task']) => void;
+  deleteTodo: (idx: ITodo['idx']) => void;
 }
-const TodoItem = ({ todo: { idx, task, completed }, todoToggle, todoUpdate, todoRemove }: Props) => {
+const TodoItem = ({ data: { idx, task, completed }, toggleTodo, updateTodo, deleteTodo }: Props) => {
   const [isEdit, setIsEdit] = useState(false);
   const [updateTask, setUpdateTask] = useState(task);
 
   const handleUpdateTask = (e: ChangeEvent<HTMLInputElement>) => setUpdateTask(e.target.value);
   const handleEditStatus = () => setIsEdit(!isEdit);
-  const handleToggle = () => todoToggle(idx);
-  const handleRemove = () => todoRemove(idx);
+  const handleToggle = () => toggleTodo(idx);
+  const handleRemove = () => deleteTodo(idx);
   const handleUpdate = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    todoUpdate(idx, updateTask);
+    updateTodo(idx, updateTask);
     handleEditStatus();
   };
 

@@ -29,11 +29,11 @@ export type ITodo = { idx: string; task: string; completed: boolean };
 const Home: NextPage = () => {
   const [todos, setTodos] = useState<ITodo[]>([]);
 
-  const todoAdd = (todo: ITodo) => setTodos([...todos, todo]);
+  const addTodo = (todo: ITodo) => setTodos([...todos, todo]);
 
-  const todoRemove = (idx: string) => setTodos(todos.filter((item) => item.idx !== idx));
+  const deleteTodo = (idx: string) => setTodos(todos.filter((item) => item.idx !== idx));
 
-  const todoToggle = (idx: string) => {
+  const toggleTodo = (idx: string) => {
     const updateTodo = todos.map((todo) => {
       if (todo.idx === idx) {
         return { ...todo, completed: !todo.completed };
@@ -43,7 +43,7 @@ const Home: NextPage = () => {
     setTodos(updateTodo);
   };
 
-  const todoUpdate = (idx: string, task: string) => {
+  const updateTodo = (idx: string, task: string) => {
     const updateTodo = todos.map((todo) => {
       if (todo.idx === idx) {
         return { ...todo, task: task };
@@ -57,16 +57,16 @@ const Home: NextPage = () => {
     <TodoContainer>
       <TodoHeader todoLength={todos.length} completedTodoLength={todos.filter((item) => item.completed).length} />
 
-      <TodoAddForm todoAdd={todoAdd} />
+      <TodoAddForm addTodo={addTodo} />
 
       <ul>
         {todos?.map((todo) => (
           <TodoItem
             key={todo.idx}
-            todo={todo}
-            todoToggle={todoToggle}
-            todoUpdate={todoUpdate}
-            todoRemove={todoRemove}
+            data={todo}
+            toggleTodo={toggleTodo}
+            updateTodo={updateTodo}
+            deleteTodo={deleteTodo}
           />
         ))}
       </ul>

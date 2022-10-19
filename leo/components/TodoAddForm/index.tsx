@@ -4,10 +4,10 @@ import type { ITodo } from '../../pages';
 import * as S from './styles';
 
 interface Props {
-  todoAdd: (todo: ITodo) => void;
+  addTodo: (todo: ITodo) => void;
 }
 
-const TodoAddForm = ({ todoAdd }: Props) => {
+const TodoAddForm = ({ addTodo }: Props) => {
   const [addTask, setAddTask] = useState('');
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => setAddTask(e.target.value);
@@ -16,7 +16,7 @@ const TodoAddForm = ({ todoAdd }: Props) => {
     e.preventDefault();
 
     if (addTask) {
-      todoAdd({ idx: uuid(), task: addTask, completed: false });
+      addTodo({ idx: uuid(), task: addTask, completed: false });
       setAddTask('');
     }
   };

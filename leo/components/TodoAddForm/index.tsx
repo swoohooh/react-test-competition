@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { v4 as uuid } from 'uuid';
-import { ITodo } from '../../pages';
+import type { ITodo } from '../../pages';
 import * as S from './styles';
 
 interface Props {

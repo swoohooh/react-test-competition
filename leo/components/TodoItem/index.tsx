@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
-import { ITodo } from '../../pages';
+import type { ITodo } from '../../pages';
 import * as S from './styles';
 
 interface Props {

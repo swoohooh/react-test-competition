@@ -24,8 +24,8 @@ const TodoAddForm = ({ addTodo }: Props) => {
   return (
     <S.AddTodoForm>
       <form onSubmit={handleSubmit}>
-        <input type='text' value={addTask} onChange={handleInput} placeholder='New Todo' />
-        <button>Add Todo</button>
+        <input data-testid='addInput' type='text' value={addTask} onChange={handleInput} placeholder='New Todo' />
+        <button data-testid='addButton'>Add Todo</button>
       </form>
     </S.AddTodoForm>
   );

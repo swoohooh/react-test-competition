@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event'
 import TodoList from './index';
 
-function renderTodoList() {
+export function renderTodoList() {
   const ENTER_KEY = '[Enter]';
   const TEXT_ARRAY = ['Send Email', 'Bake Cake', 'Checked TodoList'];
 
@@ -87,7 +87,7 @@ function renderTodoList() {
   }
 }
 
-describe('<TodoList />', () => {
+describe('TodoList를 처음 렌더링했을 때 화면이 올바르게 노출된다.', () => {
   test('Render TodoList', () => {
     const { Title, Count, AddInput, AddButton, Todos, getCountText } = renderTodoList();
 
@@ -98,7 +98,7 @@ describe('<TodoList />', () => {
     expect(Todos().length).toBe(0);
   });
 
-  test('Add Todo', async () => {
+  test('Add Input을 통해 새로운 Todo를 추가했을 때 TodoList가 갱신된다.', async () => {
     const { TEXT_ARRAY, addTodos, Count, AddInput, Todos, Todo, getCountText, getTodoText } = renderTodoList();
     const newTodoIndex = 0;
 
@@ -110,7 +110,7 @@ describe('<TodoList />', () => {
     expect(Todo(newTodoIndex)).toHaveTextContent(getTodoText(newTodoIndex));
   });
 
-  test('Delete Todo', async () => {
+  test('Todo의 삭제 버튼을 클릭했을 때 해당 Todo가 TodoList에서 제거된다.', async () => {
     const { TEXT_ARRAY, addTodos, clickTodoDeleteButton, Count, Todos, getCountText, getTodoText } = renderTodoList();
     const targetTodoIndex = 0;
     const remainTodoLength = TEXT_ARRAY.length - 1;
@@ -125,7 +125,7 @@ describe('<TodoList />', () => {
     }
   });
 
-  test('Edit Todo', async () => {
+  test('Todo의 Edit 버튼을 클릭했을 때 해당 Todo를 수정할 수 있는 Input이 노출되고 텍스트를 수정할 수 있다.', async () => {
     const { TEXT_ARRAY, addTodos, clickTodoEditButton, EditTodo, changeTodoEditInput, clickTodoEditSaveButton, getTodoText, Todo, TodoEditInput, clearTodoEditInput } = renderTodoList();
     const targetTodoIndex = 0;
     const changeText = 'Learn jest';
@@ -144,7 +144,7 @@ describe('<TodoList />', () => {
     expect(Todo(targetTodoIndex)).toHaveTextContent(changeText);
   });
 
-  test('Change Todo state', async () => {
+  test('Todo를 클릭했을 때 해당 Todo의 completed 상태 값이 변경된다.', async () => {
     const { TEXT_ARRAY, addTodos, clickTodo, getCountText, Count, TodoIcon } = renderTodoList();
     const targetTodoIndex = 0;
     const completeIcon = 'xi-check-square';

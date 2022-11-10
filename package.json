@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "react-js-pagination": "^3.0.3"
+  },
+  "devDependencies": {
+    "@types/react-js-pagination": "^3.0.4"
+  }
+}

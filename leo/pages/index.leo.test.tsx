@@ -87,14 +87,11 @@ export function renderTodoList() {
   }
 }
 
-describe('TodoList를 처음 렌더링했을 때 화면이 올바르게 노출된다.', () => {
-  test('Render TodoList', () => {
-    const { Title, Count, AddInput, AddButton, Todos, getCountText } = renderTodoList();
+describe('<TodoList />', () => {
+  test('TodoList를 처음 렌더링했을 때 화면이 올바르게 노출된다.', () => {
+    const { Count, Todos, getCountText } = renderTodoList();
 
-    expect(Title()).toBeInTheDocument();
     expect(Count()).toHaveTextContent(getCountText(0,0));
-    expect(AddInput()).toHaveValue('');
-    expect(AddButton()).toBeInTheDocument();
     expect(Todos().length).toBe(0);
   });
 
@@ -105,7 +102,6 @@ describe('TodoList를 처음 렌더링했을 때 화면이 올바르게 노출�
     await addTodos(TEXT_ARRAY);
 
     expect(Count()).toHaveTextContent(getCountText(TEXT_ARRAY.length, 0));
-    expect(AddInput()).toHaveValue('');
     expect(Todos().length).toBe(TEXT_ARRAY.length);
     expect(Todo(newTodoIndex)).toHaveTextContent(getTodoText(newTodoIndex));
   });
@@ -144,7 +140,7 @@ describe('TodoList를 처음 렌더링했을 때 화면이 올바르게 노출�
     expect(Todo(targetTodoIndex)).toHaveTextContent(changeText);
   });
 
-  test('Todo를 클릭했을 때 해당 Todo의 completed 상태 값이 변경된다.', async () => {
+  test('Todo를 클릭 시 해당 Todo의 completed 상태 값이 변경된다.', async () => {
     const { TEXT_ARRAY, addTodos, clickTodo, getCountText, Count, TodoIcon } = renderTodoList();
     const targetTodoIndex = 0;
     const completeIcon = 'xi-check-square';
@@ -155,7 +151,6 @@ describe('TodoList를 처음 렌더링했을 때 화면이 올바르게 노출�
 
     expect(Count()).toHaveTextContent(getCountText(TEXT_ARRAY.length, 1));
     expect(TodoIcon(targetTodoIndex).className).toBe(completeIcon);
-
 
     await clickTodo(targetTodoIndex);
 

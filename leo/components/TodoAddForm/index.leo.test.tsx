@@ -31,7 +31,7 @@ export function renderTodoAddForm() {
   }
 }
 
-describe('<TodoHeader />', () => {
+describe('<TodoAddForm />', () => {
   test('초기 렌더링 시 화면에 올바르게 노출된다.', () => {
     const { AddInput, AddButton } = renderTodoAddForm();
 
@@ -39,7 +39,7 @@ describe('<TodoHeader />', () => {
     expect(AddButton()).toBeInTheDocument();
   });
 
-  test('input에 값을 입력하고 버튼 클릭 시 이벤트가 호출된다.', async () => {
+  test('Add Input에 값을 입력하고 Add 버튼 클릭 시 이벤트가 호출된다.', async () => {
     const { AddInput, changeAddInput, clickAddButton, onSubmit } = renderTodoAddForm();
     const text = 'Study Next.js';
 
@@ -53,12 +53,13 @@ describe('<TodoHeader />', () => {
     expect(AddInput()).toHaveValue('');
   });
 
-  test('input에 값을 입력하고 Enter 시 이벤트가 호출된다.', async () => {
+  test('Add Input에 값을 입력하고 Enter 시 이벤트가 호출된다.', async () => {
     const { AddInput, changeAddInput, onSubmit, ENTER_KEY } = renderTodoAddForm();
     const text = 'Study Next.js';
 
     await changeAddInput(text);
     await changeAddInput(ENTER_KEY);
+
     expect(onSubmit).toHaveBeenCalledWith(expect.objectContaining({
       task: text,
       completed: false

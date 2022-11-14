@@ -96,7 +96,7 @@ describe('<TodoList />', () => {
   });
 
   test('Add Input을 통해 새로운 Todo를 추가했을 때 TodoList가 갱신된다.', async () => {
-    const { TEXT_ARRAY, addTodos, Count, AddInput, Todos, Todo, getCountText, getTodoText } = renderTodoList();
+    const { TEXT_ARRAY, addTodos, Count, Todos, Todo, getCountText, getTodoText } = renderTodoList();
     const newTodoIndex = 0;
 
     await addTodos(TEXT_ARRAY);

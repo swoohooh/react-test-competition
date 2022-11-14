@@ -69,7 +69,7 @@ export function renderTodoItem() {
   }
 }
 
-describe('<TodoHeader />', () => {
+describe('<TodoItem />', () => {
   test('초기 렌더링 시 화면에 올바르게 노출된다.', () => {
     const { Todo, TodoIcon, TodoText, incompleteIcon, todoData } = renderTodoItem();
 
@@ -78,8 +78,9 @@ describe('<TodoHeader />', () => {
     expect(TodoText()).toHaveTextContent(todoData.task);
   });
 
-  test('Edit 버튼을 클릭 시 수정 가능한 Edit Todo이 노출된다.', async () => {
-    const {clickTodoEditButton, TodoEdit, TodoEditInput, TodoEditSaveButton, todoData,} = renderTodoItem();
+  test('Edit 버튼을 클릭하면 Edit Todo가 노출된다.', async () => {
+    const {clickTodoEditButton, TodoEdit, TodoEditInput, TodoEditSaveButton, todoData } = renderTodoItem();
+
     await clickTodoEditButton();
 
     expect(TodoEdit()).toBeInTheDocument();
@@ -87,13 +88,10 @@ describe('<TodoHeader />', () => {
     expect(TodoEditSaveButton()).toBeInTheDocument();
   });
 
-  test('Edit Input의 값을 수정하고 Save 버튼을 클릭 시 이벤트가 호출된다.', async () => {
+  test('Edit Input의 값을 수정하고 Save 버튼을 클릭 시 Update 이벤트가 호출된다.', async () => {
     const {
       clickTodoEditButton,
       Todo,
-      TodoEdit,
-      TodoEditInput,
-      TodoEditSaveButton,
       todoData,
       clearTodoEditInput,
       changeTodoEditInput,
@@ -103,11 +101,6 @@ describe('<TodoHeader />', () => {
     const newText = 'Study React';
 
     await clickTodoEditButton();
-
-    expect(TodoEdit()).toBeInTheDocument();
-    expect(TodoEditInput()).toHaveValue(todoData.task);
-    expect(TodoEditSaveButton()).toBeInTheDocument();
-
     await clearTodoEditInput();
     await changeTodoEditInput(newText);
     await clickTodoEditSaveButton();
@@ -116,7 +109,7 @@ describe('<TodoHeader />', () => {
     expect(Todo()).toBeInTheDocument();
   });
 
-  test('Delete 버튼 클릭 시 삭제 이벤트가 호출된다.', async () => {
+  test('Delete 버튼 클릭 시 Delete 이벤트가 호출된다.', async () => {
     const { clickTodoDeleteButton, onDelete, todoData } = renderTodoItem();
 
     await clickTodoDeleteButton();
@@ -125,7 +118,7 @@ describe('<TodoHeader />', () => {
   });
 
 
-  test('Todo 클릭 시 상태 변경 이벤트가 호출된다.', async () => {
+  test('Todo 클릭 시 상태 Toggle 이벤트가 호출된다.', async () => {
     const { clickTodo, onToggle, todoData } = renderTodoItem();
 
     await clickTodo();

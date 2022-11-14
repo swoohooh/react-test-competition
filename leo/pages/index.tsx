@@ -2,8 +2,8 @@ import { useState } from 'react';
 import type { NextPage } from 'next';
 import styled from 'styled-components';
 import TodoHeader from '../components/TodoHeader';
-import TodoItem from '../components/TodoItem';
 import TodoAddForm from '../components/TodoAddForm';
+import TodoItem from '../components/TodoItem';
 
 const TodoContainer = styled.div`
   max-width: 500px;
@@ -17,7 +17,7 @@ const TodoContainer = styled.div`
   & > ul {
     padding-left: 25px;
     padding-right: 25px;
-  }
+  } 
 
   & > ul {
     padding-bottom: 25px;
@@ -26,10 +26,10 @@ const TodoContainer = styled.div`
 
 export type ITodo = { idx: string; task: string; completed: boolean };
 
-const Home: NextPage = () => {
+const TodoList: NextPage = () => {
   const [todos, setTodos] = useState<ITodo[]>([]);
 
-  const addTodo = (todo: ITodo) => setTodos([...todos, todo]);
+  const addTodo = (todo: ITodo) => setTodos([todo, ...todos]);
 
   const deleteTodo = (idx: string) => setTodos(todos.filter((item) => item.idx !== idx));
 
@@ -74,4 +74,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default TodoList;

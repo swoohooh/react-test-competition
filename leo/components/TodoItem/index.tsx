@@ -24,20 +24,20 @@ const TodoItem = ({ data: { idx, task, completed }, toggleTodo, updateTodo, dele
   };
 
   return isEdit ? (
-    <S.EditTodo isCompleted={completed}>
+    <S.EditTodo data-testid='todoEdit' isCompleted={completed}>
       <form onSubmit={handleUpdate}>
-        <input type='text' value={updateTask} onChange={handleUpdateTask} />
-        <button>save</button>
+        <input data-testid='todoEditInput' type='text' value={updateTask} onChange={handleUpdateTask} />
+        <button data-testid='todoEditSaveButton'>save</button>
       </form>
     </S.EditTodo>
   ) : (
-    <S.ViewTodo isCompleted={completed}>
-      <i className={completed ? 'xi-check-square' : 'xi-checkbox-blank'} />
-      <p onClick={handleToggle}>{task}</p>
-      <button type='button' onClick={handleEditStatus}>
+    <S.ViewTodo data-testid='todo' isCompleted={completed}>
+      <i data-testid='todoIcon' className={completed ? 'xi-check-square' : 'xi-checkbox-blank'} />
+      <p data-testid='todoText' onClick={handleToggle}>{task}</p>
+      <button data-testid='todoEditButton' type='button' onClick={handleEditStatus}>
         <i className='xi-pen' />
       </button>
-      <button type='button' onClick={handleRemove}>
+      <button data-testid='todoDeleteButton' type='button' onClick={handleRemove}>
         <i className='xi-trash' />
       </button>
     </S.ViewTodo>

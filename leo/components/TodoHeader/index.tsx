@@ -5,15 +5,15 @@ interface Props {
   completedTotalNumber: number;
 }
 
-const Header = ({ totalNumber, completedTotalNumber }: Props) => {
+const TodoHeader = ({ totalNumber, completedTotalNumber }: Props) => {
   return (
     <S.TodoHeader>
-      <h1>Todo App</h1>
-      <p>
+      <h1 data-testid='title'>Todo App</h1>
+      <p data-testid='count'>
         총 {totalNumber}개 중 {completedTotalNumber}개 완료
       </p>
     </S.TodoHeader>
   );
 };
 
-export default Header;
+export default TodoHeader;

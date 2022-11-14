@@ -1,0 +1,14 @@
+{
+  "extends": "next/core-web-vitals",
+  "plugins": ["react-hooks", "react", "unused-imports"],
+  "rules": {
+    "react-hooks/rules-of-hooks": "error", // For checking rules of hooks
+    "react-hooks/exhaustive-deps": "warn", // For checking hook dependencies
+    // "no-unused-vars": "error", // or "@typescript-eslint/no-unused-vars": "off",
+    "unused-imports/no-unused-imports": "warn"
+    // "unused-imports/no-unused-vars": [
+    // 	"warn",
+    // 	{ "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }
+    // ]
+  }
+}

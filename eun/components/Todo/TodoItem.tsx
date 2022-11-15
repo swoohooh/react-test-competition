@@ -1,6 +1,4 @@
-import { setEngine } from 'crypto';
-import type { NextPage } from 'next';
-import { BaseSyntheticEvent, KeyboardEvent, useCallback, useEffect, useRef, useState } from 'react';
+import { BaseSyntheticEvent, KeyboardEvent, useCallback, useRef, useState } from 'react';
 import { DeleteIcon } from '../Icon/DeleteIcon';
 import { EditIcon } from '../Icon/EditIcon';
 
@@ -12,18 +10,18 @@ export interface ITodoItem {
 
 export type TodoItemProps = {
   todo: ITodoItem;
-  handleComplete: (id: number) => void;
-  handleEdit: (id: number, content: string) => void;
-  handleDelete: (id: number) => void;
+  completeTodo: (id: number) => void;
+  editTodo: (id: number, content: string) => void;
+  deleteTodo: (id: number) => void;
 };
 
-const TodoItem = ({ todo, handleComplete, handleEdit, handleDelete }: TodoItemProps) => {
+const TodoItem = ({ todo, completeTodo, editTodo, deleteTodo }: TodoItemProps) => {
   const [edit, setEdit] = useState<boolean>(false);
   const [newContent, setNewContent] = useState<string>(todo?.content);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const onClickEdit = useCallback(() => {
+  const clickEdit = useCallback(() => {
     setEdit(true);
     if (inputRef.current != null) {
       inputRef.current.focus();
@@ -37,20 +35,25 @@ const TodoItem = ({ todo, handleComplete, handleEdit, handleDelete }: TodoItemPr
     [setNewContent],
   );
 
-  const onPressEnter = useCallback(
+  const pressEnter = useCallback(
     (e: KeyboardEvent<HTMLElement>) => {
       if (e.key === 'Enter') {
         setEdit(false);
-        handleEdit(todo?.id, newContent);
+        editTodo(todo?.id, newContent);
       }
     },
-    [setEdit, handleEdit, todo, newContent],
+    [setEdit, editTodo, todo, newContent],
   );
 
   return (
-    <div className="grid grid-cols-12 gap-1 items-center mt-2 mx-2">
+    <div className="mx-2 mt-2 grid grid-cols-12 items-center gap-1">
       <div className="col-span-1">
-        <input type="checkbox" className="mr-5 w-4 h-4" onChange={() => handleComplete(todo?.id)} />
+        <input
+          type="checkbox"
+          className="mr-5 h-4 w-4"
+          onChange={() => completeTodo(todo?.id)}
+          checked={todo?.completed}
+        />
       </div>
 
       <div className="col-span-9 flex justify-start overflow-x-scroll ">
@@ -60,21 +63,24 @@ const TodoItem = ({ todo, handleComplete, handleEdit, handleDelete }: TodoItemPr
             ref={inputRef}
             autoFocus={true}
             value={newContent}
-            className="border-2 rounded-lg p-1 w-full"
-            onKeyDown={onPressEnter}
+            className="w-full rounded-lg border-2 p-1"
+            onKeyDown={pressEnter}
             onChange={onChangeContent}
-            onBlur={() => setEdit(false)}
+            onBlur={() => {
+              setEdit(false);
+              setNewContent(todo.content);
+            }}
           />
         ) : (
           todo?.content
         )}
       </div>
-      <div className="col-span-2 flex gap-2 justify-end">
-        <div onClick={onClickEdit}>
-          <EditIcon className="w-4 h-4 cursor-pointer" />
+      <div className="col-span-2 flex justify-end gap-2">
+        <div onClick={clickEdit}>
+          <EditIcon className="h-4 w-4 cursor-pointer" />
         </div>
-        <div onClick={() => handleDelete(todo?.id)}>
-          <DeleteIcon className="w-4 h-4 cursor-pointer" />
+        <div onClick={() => deleteTodo(todo?.id)}>
+          <DeleteIcon className="h-4 w-4 cursor-pointer" />
         </div>
       </div>
     </div>

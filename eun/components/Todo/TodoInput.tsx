@@ -1,14 +1,13 @@
-import type { NextPage } from 'next';
-import { BaseSyntheticEvent, KeyboardEvent, useCallback, useEffect, useState } from 'react';
+import { BaseSyntheticEvent, KeyboardEvent, useCallback, useState } from 'react';
 
 export type TodoInputProps = {
-  handleAdd: (content: string) => void;
+  addTodo: (content: string) => void;
 };
 
-const TodoInput = ({ handleAdd }: TodoInputProps) => {
+const TodoInput = ({ addTodo }: TodoInputProps) => {
   const [content, setContent] = useState<string>('');
 
-  const onChangeContent = useCallback(
+  const changeContent = useCallback(
     (e: BaseSyntheticEvent) => {
       e.preventDefault();
 
@@ -17,27 +16,27 @@ const TodoInput = ({ handleAdd }: TodoInputProps) => {
     [setContent],
   );
 
-  const onPressEnter = useCallback(
+  const pressEnter = useCallback(
     (e: KeyboardEvent<HTMLElement>) => {
       if (e.key == 'Enter' && content != '') {
         e.preventDefault();
-        handleAdd(content);
+        addTodo(content);
         setContent('');
         return;
       }
     },
-    [handleAdd, setContent, content],
+    [addTodo, setContent, content],
   );
 
   return (
-    <div className="flex border-2 rounded-xl w-90 h-14 pl-4 pr-5">
+    <div className="w-90 flex h-14 rounded-xl border-2 pl-4 pr-5">
       <input
         type="text"
         placeholder="Please enter your todo!"
         value={content}
-        className="border-0 outline-none text-xl w-full"
-        onChange={onChangeContent}
-        onKeyPress={onPressEnter}
+        className="w-full border-0 text-xl outline-none"
+        onChange={changeContent}
+        onKeyPress={pressEnter}
       />
     </div>
   );

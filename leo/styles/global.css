@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .th {
+    @apply border-b-2 border-gray-400 border-solid h-12 px-1.5;
+  }
+  .td {
+    @apply border-b border-gray-300 border-solid h-12 px-1.5;
+  }
+  .button {
+    @apply inline-block py-2.5 px-10 mt-5 ml-auto rounded-sm text-sm font-bold;
+  }
+}

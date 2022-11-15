@@ -1,121 +1,64 @@
-import styled from 'styled-components';
-import type { NextPage } from 'next';
-import notice_data from '../api/notice_data.json';
+import { NextPage } from 'next';
+import { useEffect, useState } from 'react';
+import Layout from '../../components/Layout';
 import { useRouter } from 'next/router';
-import usePageParams from '../../hook/usePageParams';
-
-const Wrap = styled.div`
-  max-width: 1000px;
-  margin: 100px auto;
-  
-  display: flex;
-  flex-direction: column;
-`;
-const Container = styled.div`
-  border: 2px solid #666;
-  border-left: 0;
-  border-right: 0;
-`;
-const Heading = styled.div`
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid #cfcfcf;
-  font-size: 14px;
-  
-  p:first-child {
-    font-weight: bold;
-  }
-`;
-const Content = styled.div`
-  padding: 50px 0;
-`;
-const ListButton = styled.button`
-  display: inline-block;
-  padding: 10px 40px;
-  margin: 20px 0 0 auto;
-
-  color: #fff;
-  background: #666;
-  border-radius: 3px;
-
-  font-size: 14px;
-  font-weight: bold;
-`;
-const List = styled.ul`
-  border-top: 1px solid #cfcfcf;
-
-  li {
-    height: 50px;
-    padding: 0 20px;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid #cfcfcf;
-    cursor: pointer;
-
-    &:last-child {
-      border-bottom: 0;
-    }
-
-    p:first-child {
-      width: 10%;
-    }
-
-    i {
-      margin-right: 8px;
-    }
-  }
-`;
+import noticeData from '../api/noticeData';
+import Link from 'next/link';
 
 const NoticeDetail: NextPage = () => {
   const router = useRouter();
-  const noticeIdx = Number(router.query['idx'] || 0) - 1;
-  const pathName = router.pathname;
+  const noticeIdx = Number(router.query['idx'] || 0);
+  const paginationIdx = Number(router.query['page'] || 1);
 
-  const prevCont = notice_data[noticeIdx - 1];
-  const nextCont = notice_data[noticeIdx + 1];
-  const nowCont = notice_data[noticeIdx];
+  const getNoticeIndex = () => noticeData.findIndex((item) => item.idx === noticeIdx);
+  const [nowContIndex, setNowContIndex] = useState(getNoticeIndex());
 
-  const moveToPageParams = usePageParams();
-  const moveToPage = (idx?: number) => {
-    moveToPageParams({
-      path: `${pathName}${idx ? `/${idx}` : ''}`,
-      activePage: Number(router.query['page'] || 1)
-    });
-  };
+  useEffect(() => {
+    setNowContIndex(getNoticeIndex());
+  }, [noticeIdx]);
 
-  // const moveToPage = (pathIdx?: number) => `/notice${pathIdx ? `/${encodeURIComponent(pathIdx)}` : ''}`;
+  const nowCont = noticeData[nowContIndex];
+  const prevCont = noticeData[nowContIndex + 1];
+  const nextCont = noticeData[nowContIndex - 1];
+
+  const moveToPage = (idx?: number) => `/notice${idx ? `/${idx}` : ''}?page=${paginationIdx}`;
 
   return (
-    <Wrap>
-      <Container>
-        <Heading>
-          <p>{nowCont?.idx} : {nowCont?.title}</p>
+    <Layout>
+      <div className='border-y-2 border-solid border-gray-400 text-sm'>
+        <div className='flex h-12 items-center justify-between border-b border-solid border-gray-300'>
+          <p className='font-bold'>{nowCont?.idx} : {nowCont?.title}</p>
           <p>{nowCont?.creator} | {nowCont?.createdDate}</p>
-        </Heading>
+        </div>
 
-        <Content>contents</Content>
+        <div className='py-12 leading-5'>
+          {nowCont?.content}
+        </div>
 
-        <List>
-          {prevCont?.idx && (
-            <li onClick={() => moveToPage(prevCont.idx)}>
-              <p><i className='xi-angle-up'/>이전</p>
-              <p>{prevCont?.title}</p>
-            </li>
-          )}
-          {nextCont?.idx && (
-            <li onClick={() => moveToPage(nextCont.idx)}>
-              <p><i className='xi-angle-down'/>다음</p>
-              <p>{nextCont?.title}</p>
-            </li>
-          )}
-        </List>
-      </Container>
+        <ul className='border-t border-solid border-gray-300'>
+          {[nextCont, prevCont].map((item, index) => {
+            const isNext = index === 0;
+            const styleClass = ['h-12 px-5 flex items-center cursor-pointer', isNext ? 'border-b border-solid border-gray-300' : ''].join(' ');
+            const buttonText = isNext ? '다음' : '이전'
+            const iconClass = isNext ? 'xi-angle-up' : 'xi-angle-down'
 
-      <ListButton type='button' onClick={() => moveToPage()}>목록</ListButton>
-    </Wrap>
+            return item?.idx && (
+              <Link key={item.idx} href={moveToPage(item.idx)}>
+                <li className={styleClass}>
+                  <p className='w-1/12'><i className={`${iconClass} mr-2`} />{buttonText}</p>
+                  <p>{item.idx} : {item.title}</p>
+                </li>
+              </Link>
+            )
+          })}
+        </ul>
+      </div>
+
+      <Link href={moveToPage()}>
+        <button className='button text-white bg-gray-500' type='button'>목록</button>
+      </Link>
+    </Layout>
   );
-};
+}
 
 export default NoticeDetail;

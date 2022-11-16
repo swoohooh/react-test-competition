@@ -16,4 +16,6 @@ const Header = ({ totalNumber, completedTotalNumber }: Props) => {
   );
 };
 
+export type { Props as TodoHeaderProps };
+
 export default Header;

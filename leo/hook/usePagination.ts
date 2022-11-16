@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Router, useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 
-type getData<ListType> = (startIndex: number, endIndex: number) => Promise<{ list: ListType[], count: number }>;
+type getData<ListType> = (params: Record<string, number>) => Promise<{ list: ListType[], count: number }>;
 
 const usePagination = <ListType>(getData: getData<ListType>) => {
   const router = useRouter();
@@ -16,25 +16,28 @@ const usePagination = <ListType>(getData: getData<ListType>) => {
   const [list, setList] = useState<ListType[]>([]);
   const [isLoading, setLoading] = useState(false);
 
-  const handlePagination = (index: number) => setActivePage(index);
-
   const getPageData = async (index: number) => {
+    setLoading(true);
     const startIndex = (index - 1) * itemsCountPerPage;
     const endIndex = (startIndex) + itemsCountPerPage;
-    const data = await getData(startIndex, endIndex);
 
-    setList(data.list);
-    setTotalListCount(data.count);
+    await router.push(`${pathName}?page=${activePage}`);
+    const data = await getData({start: startIndex, end: endIndex});
+
+    setActivePage(index);
+    setLoading(false);
+
+    if (data) {
+      setList(data?.list);
+      setTotalListCount(data?.count);
+    }
   }
 
   useEffect(() => {
-    setLoading(true);
-    (async function() {
-      await getPageData(activePage);
-      await router.push(`${pathName}?page=${activePage}`);
-      setLoading(false);
+    (async function(){
+      await getPageData(paramsPage);
     }());
-  }, [activePage]);
+  }, []);
 
   return {
     pagination: {
@@ -42,11 +45,12 @@ const usePagination = <ListType>(getData: getData<ListType>) => {
       itemsCountPerPage,
       pageRangeDisplayed,
       totalItemsCount: totalListCount,
-      onChange: handlePagination,
+      onChange: getPageData,
     },
     list,
     paramsPage,
     totalListCount,
+    isLoading,
   };
 }
 

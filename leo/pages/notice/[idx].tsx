@@ -1,15 +1,16 @@
 import { NextPage } from 'next';
 import { useEffect, useState } from 'react';
-import Layout from '../../components/Layout';
 import { useRouter } from 'next/router';
-import noticeData from '../api/noticeData';
 import Link from 'next/link';
+import Layout from '../../components/Layout';
+import { getNoticeData } from '../../mocks/handlers';
 
 const NoticeDetail: NextPage = () => {
   const router = useRouter();
   const noticeIdx = Number(router.query['idx'] || 0);
   const paginationIdx = Number(router.query['page'] || 1);
 
+  const noticeData = getNoticeData();
   const getNoticeIndex = () => noticeData.findIndex((item) => item.idx === noticeIdx);
   const [nowContIndex, setNowContIndex] = useState(getNoticeIndex());
 

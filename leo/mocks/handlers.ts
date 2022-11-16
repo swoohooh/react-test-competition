@@ -7,17 +7,36 @@ export interface NoticeResponse {
   count: number
 }
 
+export const getNoticeData = () => {
+  const orderedData: INoticeModel[] = data.sort((a: INoticeModel, b: INoticeModel): number => b.idx - a.idx);
+  const noticeArray: INoticeModel[] = [];
+  const dataArray: INoticeModel[] = [];
+
+  orderedData.forEach((item) => {
+    if (item.category === '공지') noticeArray.push(item);
+    else dataArray.push(item);
+  });
+
+  return [...noticeArray, ...dataArray];
+}
+
 export const handlers = [
-  rest.get<NoticeResponse>('https://test.api.com/notice', (req, res, ctx) => {
+  rest.get<NoticeResponse>('http://localhost:8001/notice', (req, res, ctx) => {
+    const startIndex = Number(req.url.searchParams.get('start')) || 0;
+    const endIndex = Number(req.url.searchParams.get('end')) || 0;
+
+    const noticeData = getNoticeData();
+
     return res(
       ctx.status(200),
       ctx.json({
-        list: data,
-        count: data.length
+        list: noticeData.slice(startIndex, endIndex),
+        count: noticeData.length
       })
     );
   }),
-  rest.get<INoticeModel>('https://test.api.com/notice/1', (req, res, ctx) => {
+  rest.get<INoticeModel>('http://localhost:8001/notice/[%d]', (req, res, ctx) => {
+    console.log('detail');
     return res(
       ctx.status(200),
       ctx.json(data[0]),

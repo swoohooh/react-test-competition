@@ -31,4 +31,6 @@ const TodoAddForm = ({ addTodo }: Props) => {
   );
 };
 
+export type { Props as TodoAddFormProps };
+
 export default TodoAddForm;
